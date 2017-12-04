@@ -4,11 +4,9 @@ var playerrestingleft;
 var playerleft;
 var playerright;
 var playerstop;
-var screaming
 var greenSprite;
 var greenpeace;
-var blueapron;
-var freehugs
+var i;
 
 function preload() {
     playerresting = loadAnimation("assets/resting1.png", "assets/resting8.png");
@@ -16,42 +14,36 @@ function preload() {
     playerstop = loadAnimation("assets/stopped1.png", "assets/stopped8.png");
     playerleft = loadAnimation("assets/leftrun01.png", "assets/leftrun13.png");
     playerright = loadAnimation("assets/rightrun01.png", "assets/rightrun13.png");
-    screaming = loadAnimation("assets/scream01.png", "assets/scream13.png");
     greenpeace = loadAnimation("assets/greenpeace1.png", "assets/greenpeace4.png");
-    blueapron = loadAnimation("assets/blueapron1.png", "assets/blueapron4.png");
-    freehugs = loadAnimation("assets/freehugs1.png", "assets/freehugs4.png");
-    var bg = [loadImage("assets/background 1.png"), loadImage("assets/background 2.png"), loadImage("assets/background 3.png"), loadImage("assets/background 4.png")];
+    back1 = loadImage("assets/background 1.png");
+    back2 = loadImage("assets/background 2.png");
+    back3 = loadImage("assets/background 3.png");
+    back4 = loadImage("assets/background 4.png");
     
 }
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    
-    greenSprite = createSprite (1650, 600);
-    greenSprite.addAnimation("green", greenpeace);
-    greenSprite.setCollider("rectangle", -150, -200, 250, 525);
-    
-    blueSprite = createSprite (1300,600);
-    blueSprite.addAnimation("blue", blueapron);
-    blueSprite.setCollider("rectangle", -150, -200, 250, 550);
-    
-    redSprite = createSprite (900, 600);
-    redSprite.addAnimation("red", freehugs);
-    redSprite.setCollider("rectangle", -150, -200, 250, 525);
-    
     playerSprite = createSprite (100, 600);
     playerSprite.addAnimation("resting", playerresting);
     playerSprite.addAnimation("restingleft", playerrestingleft);
     playerSprite.addAnimation("stopped", playerstop);
     playerSprite.addAnimation("run right", playerright);
     playerSprite.addAnimation("run left", playerleft);
-    playerSprite.addAnimation("scream", screaming);
     playerSprite.setCollider("rectangle", 0, -200, 475, 525);
+    
+    greenSprite = createSprite (1300, 600);
+    greenSprite.addAnimation("green", greenpeace);
+    greenSprite.setCollider("rectangle", -150, -200, 250, 525);
+    
+    var bg = [back1, back2, back3, back4];
     
 }
 
 function draw() {
     background(255);
+    
+    image(bg[0], 0, 0);
     
     playerSprite.velocity.x = 0;
     
@@ -84,7 +76,6 @@ function draw() {
     
     if (keyIsDown(SHIFT)) {
         playerSprite.overlap(greenSprite);
-        playerSprite.changeAnimation("scream");
     } else {
      playerSprite.collide(greenSprite, playerstopped);   
     }
@@ -101,35 +92,3 @@ function draw() {
   drawSprites();
 
 }
-
-//class stopper {
-
-/*
- if(spritename.position.y > height + 100)
- {mySprite.remove();
- }
- 
-  if(platform.overlapPixel(triangle.position.x, triangle.position.y+30)==false)
-    triangle.velocity.y += GRAVITY;
-    
-     while(platform.overlapPixel(triangle.position.x, triangle.position.y+30))
-    {
-    triangle.position.y--;
-    triangle.velocity.y = 0;
-    }
-    
-    I could remove the stopper
-       if(keyIsDown(SHIFT)) {
-        greenSprite.remove();
-    }
-    this didn't work, the collision box was still in effect.
-    
-    
-    set it's collider to overlap, not colide if given certain circumstances. 
-    
-    I could set the visibility of all the characters to change based on what number in the array they are
-    
-    I could do an endless running type thing for my map instead of individual backgrounds
-*/
-
-//}
