@@ -1,71 +1,63 @@
-var testplayer;
-var playx;
-var playy;
-var xspeed = 15;
+var playerSprite;
+var playerresting;
+var playerrestingleft;
+var playerleft;
+var playerright;
+var playerstop;
 
 function preload() {
-    testplayer = loadAnimation("assets/rotationtest01.png", "assets/rotationtest48.png");
+    playerresting = loadAnimation("assets/resting1.png", "assets/resting8.png");
+    playerrestingleft = loadAnimation("assets/restingleft1.png", "assets/restingleft8.png");
+    playerstop = loadAnimation("assets/stopped1.png", "assets/stopped8.png");
+    playerleft = loadAnimation("assets/leftrun01.png", "assets/leftrun13.png");
+    playerright = loadAnimation("assets/rightrun01.png", "assets/rightrun13.png");
 }
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    myPlayer = new Player(100, 500, 10, 10);
-
+    playerSprite = createSprite (100, 600, 100, 500);
+    playerSprite.addAnimation("resting", playerresting);
+    playerSprite.addAnimation("restingleft", playerrestingleft);
+    playerSprite.addAnimation("stopped", playerstop);
+    playerSprite.addAnimation("run right", playerright);
+    playerSprite.addAnimation("run left", playerleft);
+    
+    
+    
 }
 
 function draw() {
     background(255);
-    myPlayer.move();
-    myPlayer.render();
-    /*animation(testplayer, 200, 450);*/
-
-}
-
-class Player {
-    //it has a rest image
-    //it has a moving animation and a move function
-    //it stops when reaching an object
-    //it has defined edges?
-
-    constructor(tempx, tempy, temph, tempw) {
-        this.x = tempx;
-        this.y = tempy;
-        this.h = temph;
-        this.w = tempw;
+    
+    playerSprite.velocity.x = 0;
+    
+    if (keyIsPressed === false) {
+        playerSprite.changeAnimation("resting");
     }
-//render a cube
-    /*render() {
-        rectMode(CENTER);
-        fill(0);
-        rect(this.x, this.y, this.w, this.h);
-    }
-*/
-
-    //someday render thing
-    render (){
-        animation(testplayer,this.x,this.y);
-    }
-
-    move() {
+    
+    //run right
+    if (keyIsDown(RIGHT_ARROW)) {
+            playerSprite.velocity.x = 20;
+            playerSprite.changeAnimation("run right");
+        } /*else {playerSprite.changeAnimation("resting");
+               }*/
+    
+    //run left
         if (keyIsDown(LEFT_ARROW)) {
-            this.x = this.x - xspeed;
-        }
-        if (keyIsDown(RIGHT_ARROW)) {
-            this.x = this.x + xspeed
-        }
+            playerSprite.velocity.x = -20;
+            playerSprite.changeAnimation("run left");
+        } /*else {playerSprite.changeAnimation("restingleft");
+               }*/    
+    
+    //screen edge reset
+    if(playerSprite.position.x > width)
+    {playerSprite.position.x = 0;}
+    
+    if(playerSprite.position.x < 0) {
+        playerSprite.position.x = width;
     }
-
-
     
-    relocate () {
-        if (this.x >= windowWidth) {
-            this.x == 5;
-        }
-        if (this.x <= 0) {
-            this.x == 5;
-            }
-        }
-    
+  drawSprites();
 
 }
 
