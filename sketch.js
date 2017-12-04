@@ -14,6 +14,8 @@ function preload() {
     playerleft = loadAnimation("assets/leftrun01.png", "assets/leftrun13.png");
     playerright = loadAnimation("assets/rightrun01.png", "assets/rightrun13.png");
     greenpeace = loadAnimation("assets/greenpeace1.png", "assets/greenpeace4.png");
+    var bg = [loadImage("assets/background 1.png"), loadImage("assets/background 2.png"), loadImage("assets/background 3.png"), loadImage("assets/background 4.png")];
+    
 }
 
 function setup() {
@@ -35,7 +37,7 @@ function setup() {
 }
 
 function draw() {
-    background(255);
+    background(bg[1]);
     
     playerSprite.velocity.x = 0;
     
